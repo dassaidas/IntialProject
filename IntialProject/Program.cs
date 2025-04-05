@@ -13,7 +13,13 @@ public class Program
     public static void Main(string[] args)
     {
 
-        var builder = WebApplication.CreateBuilder(args);
+        WebApplicationOptions options = new WebApplicationOptions
+            {
+            WebRootPath="myWebRoot",//setting the myWebRoot as myWebRoot
+            Args = args,// settings the command line arguments in args
+            EnvironmentName="production",//changing the production
+        };
+        var builder = WebApplication.CreateBuilder(options);
         var app = builder.Build();
         app.MapGet("/", () =>
         
