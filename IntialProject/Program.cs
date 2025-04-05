@@ -26,13 +26,22 @@ public class Program
 
 
        // Setting Up Endpoints, Routing, and Middleware Components
-        app.MapGet("/", () => $"Hello World!{value} +{alternateValueReading}");
+        //app.MapGet("/", () => $"Hello World!{value} +{alternateValueReading}");
 
         //adding middle wares
         //https://localhost:44333/greet
         app.MapGet("/greet", () => "hello form greet endpoint");
         //https://localhost:44333/greet/sai
         app.MapGet("/greet/{name}", (string name) => $"hello,{name}");
+
+
+        //configuring new inline middlware component using run extension method
+
+        app.Run(async(context)=>
+        {
+            await context.Response.WriteAsync("Hi from run extension method");
+        });
+
 
         //Running the Application
         app.Run();
