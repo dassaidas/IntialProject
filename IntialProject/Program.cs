@@ -42,6 +42,13 @@ public class Program
         //    await context.Response.WriteAsync("Hi from run extension method");
         //});
 
+        app.Use(async (context, next) =>
+        {
+
+            await context.Response.WriteAsync("calling first middle ware");
+            await next();
+        });
+
         app.Run(FirstMiddleware);
 
         //Running the Application
@@ -54,7 +61,7 @@ public class Program
     private static  async Task FirstMiddleware(HttpContext context)
     {
 
-        await context.Response.WriteAsync("hello form FirstMiddleware method");
+        await context.Response.WriteAsync("calling second middleware");
     }
 }
 /*
