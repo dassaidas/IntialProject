@@ -16,9 +16,17 @@ public class Program
         //Building the Application
 
         var app = builder.Build();
+        
+
+        //Reading value form the appsettings.json
+        //case1
+        string? value = builder?.Configuration["MyValue"];
+        //case 2;
+        string? alternateValueReading = builder?.Configuration.GetValue<string>("MyValue", "empty value");
+
 
        // Setting Up Endpoints, Routing, and Middleware Components
-        app.MapGet("/", () => "Hello World!");
+        app.MapGet("/", () => $"Hello World!{value} +{alternateValueReading}");
 
         //Running the Application
         app.Run();
