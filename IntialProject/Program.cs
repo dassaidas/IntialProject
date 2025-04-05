@@ -9,51 +9,69 @@ using Microsoft.Extensions.Hosting;
 
 public class Program
 {
+
     public static void Main(string[] args)
     {
-        //Creating the Web Host and Configuring the Services
+
         var builder = WebApplication.CreateBuilder(args);
-        //Building the Application
-
         var app = builder.Build();
+        app.MapGet("/", () =>
         
-
-        //Reading value form the appsettings.json
-        //case1
-        string? value = builder?.Configuration["MyValue"];
-        //case 2;
-        string? alternateValueReading = builder?.Configuration.GetValue<string>("MyValue", "empty value");
-
-
-       // Setting Up Endpoints, Routing, and Middleware Components
-        //app.MapGet("/", () => $"Hello World!{value} +{alternateValueReading}");
-
-        //adding middle wares
-        //https://localhost:44333/greet
-        app.MapGet("/greet", () => "hello form greet endpoint");
-        //https://localhost:44333/greet/sai
-        app.MapGet("/greet/{name}", (string name) => $"hello,{name}");
-
-
-        //configuring new inline middleware component using run extension method
-
-        //app.Run(async(context)=>
-        //{
-        //    await context.Response.WriteAsync("Hi from run extension method");
-        //});
-
-        app.Use(async (context, next) =>
-        {
-
-            await context.Response.WriteAsync("calling first middle ware");
-            await next();
-        });
-
-        app.Run(FirstMiddleware);
-
-        //Running the Application
+            $"Environment Name:{app.Environment.EnvironmentName} \n"+
+            $"Application Name:{app.Environment.ApplicationName} \n"+
+            $"webRootPath:{app.Environment.WebRootPath} \n"+
+            $"content root path:{app.Environment.ContentRootPath}"
+        );
         app.Run();
     }
+
+
+    //public static void Main(string[] args)
+    //{
+    //    //Creating the Web Host and Configuring the Services
+    //    var builder = WebApplication.CreateBuilder(args);
+    //    //Building the Application
+
+    //    var app = builder.Build();
+        
+
+    //    //Reading value form the appsettings.json
+    //    //case1
+    //    string? value = builder?.Configuration["MyValue"];
+    //    //case 2;
+    //    string? alternateValueReading = builder?.Configuration.GetValue<string>("MyValue", "empty value");
+
+
+    //   // Setting Up Endpoints, Routing, and Middleware Components
+    //    //app.MapGet("/", () => $"Hello World!{value} +{alternateValueReading}");
+
+    //    //adding middle wares
+    //    //https://localhost:44333/greet
+    //    app.MapGet("/greet", () => "hello form greet endpoint");
+    //    //https://localhost:44333/greet/sai
+    //    app.MapGet("/greet/{name}", (string name) => $"hello,{name}");
+
+
+    //    //configuring new inline middleware component using run extension method
+
+    //    //app.Run(async(context)=>
+    //    //{
+    //    //    await context.Response.WriteAsync("Hi from run extension method");
+    //    //});
+
+    //    app.Use(async (context, next) =>
+    //    {
+
+    //        await context.Response.WriteAsync("calling first middle ware");
+    //        await next();
+    //    });
+
+    //    app.Run(FirstMiddleware);
+
+    //    //Running the Application
+    //    app.Run();
+    //}
+
 
     //public delegate Task RequestDelegate(HttpContext context);
 
