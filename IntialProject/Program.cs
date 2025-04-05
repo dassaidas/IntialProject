@@ -35,16 +35,26 @@ public class Program
         app.MapGet("/greet/{name}", (string name) => $"hello,{name}");
 
 
-        //configuring new inline middlware component using run extension method
+        //configuring new inline middleware component using run extension method
 
-        app.Run(async(context)=>
-        {
-            await context.Response.WriteAsync("Hi from run extension method");
-        });
+        //app.Run(async(context)=>
+        //{
+        //    await context.Response.WriteAsync("Hi from run extension method");
+        //});
 
+        app.Run(FirstMiddleware);
 
         //Running the Application
         app.Run();
+    }
+
+    //public delegate Task RequestDelegate(HttpContext context);
+
+    // the below method should be same signature as RequestDelegate like above line
+    private static  async Task FirstMiddleware(HttpContext context)
+    {
+
+        await context.Response.WriteAsync("hello form FirstMiddleware method");
     }
 }
 /*
