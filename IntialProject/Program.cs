@@ -18,9 +18,9 @@ public class Program
         var app = builder.Build();
 
         //Adding Static Files Middleware Component to serve the static files
+        app.UseDefaultFiles();
         app.UseStaticFiles();
 
-        app.MapGet("/", () => "Hello World!");
 
         //This will Run the Application
         app.Run();
