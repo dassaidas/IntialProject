@@ -18,7 +18,10 @@ public class Program
         var app = builder.Build();
 
         //Adding Static Files Middleware Component to serve the static files
-        app.UseDefaultFiles();
+        DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+        defaultFilesOptions.DefaultFileNames.Clear();
+        defaultFilesOptions.DefaultFileNames.Add("abc.html");
+        app.UseDefaultFiles(defaultFilesOptions);
         app.UseStaticFiles();
 
 
