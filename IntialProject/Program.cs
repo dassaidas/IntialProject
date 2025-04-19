@@ -13,21 +13,16 @@ public class Program
     public static void Main(string[] args)
     {
 
-        WebApplicationOptions options = new WebApplicationOptions
-            {
-            WebRootPath="myWebRoot",//setting the myWebRoot as myWebRoot
-            Args = args,// settings the command line arguments in args
-            EnvironmentName="production",//changing the production
-        };
-        var builder = WebApplication.CreateBuilder(options);
+        var builder = WebApplication.CreateBuilder(args);
+
         var app = builder.Build();
-        app.MapGet("/", () =>
-        
-            $"Environment Name:{app.Environment.EnvironmentName} \n"+
-            $"Application Name:{app.Environment.ApplicationName} \n"+
-            $"webRootPath:{app.Environment.WebRootPath} \n"+
-            $"content root path:{app.Environment.ContentRootPath}"
-        );
+
+        //Adding Static Files Middleware Component to serve the static files
+        app.UseStaticFiles();
+
+        app.MapGet("/", () => "Hello World!");
+
+        //This will Run the Application
         app.Run();
     }
 
